@@ -3,9 +3,6 @@ import React from 'react';
 const NavBar = () => {
   return (
     <div class="NavBar">
-    <div class="body">
-        <h1>Home</h1>
-    </div>
     <div class="main">
         <div class="second-body">
             <div class="thing">
