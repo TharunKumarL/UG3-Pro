@@ -10,7 +10,9 @@ const Header = () => {
         <a href="/shops">Shops</a>
         <a href="/deals">Deals</a>
         <a href="/events">Events</a>
+        <a href="/signup">Sign Up</a>
         <a href="/contact">Contact Us</a>
+
       </nav>
       <div className="search-bar">
         <input type="text" placeholder="Search..." />
