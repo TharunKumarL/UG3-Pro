@@ -3,7 +3,7 @@
     justify-content: space-evenly;
     align-items: center;
     padding: 50px;
-    background: url('../images/background.png') no-repeat center fixed;
+    background: url('../images/background1.png') no-repeat center fixed;
     background-size: cover;
     height: 100vh; /* Full screen height */
     border-top: 2px solid #e0e0e0;
