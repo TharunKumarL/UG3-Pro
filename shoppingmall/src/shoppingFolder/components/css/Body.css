@@ -1,69 +1,66 @@
 .mall-body {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 50px;
-    background: url('../images/background1.png') no-repeat center fixed;
-    background-size: cover;
-    height: 100vh; /* Full screen height */
-    border-top: 2px solid #e0e0e0;
-  }
-  
-  .section-link {
-    padding: 30px;
-    background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    text-align: center;
-    width: 150px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .section-link a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
-  
-  .section-link:hover {
-    transform: translateY(-5px); /* Hover effect for lift */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
-  }
-  
-  .home {
-    background-color: rgba(255, 229, 229, 0.8);
-  }
-  
-  .shops {
-    background-color: rgba(229, 255, 229, 0.8);
-  }
-  
-  .deals {
-    background-color: rgba(229, 243, 255, 0.8);
-  }
-  
-  .events {
-    background-color: rgba(255, 229, 255, 0.8);
-  }
-  
-  .section-link a {
-    color: #000;
-    text-decoration: none;
-    padding: 10px 20px;
-  }
-  
-  .section-link a:hover {
-    color: #fff;
-    background-color: #000;
-    border-radius: 5px;
-  }
-  
-  .section-content {
-    padding: 20px;
-  }
-  
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 50px;
+  background-color: #f0f0f0; 
+  height: 100vh;
+  border-top: 2px solid #e0e0e0;
+}
+
+.section-link {
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.8); 
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-link a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.section-link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); 
+}
+
+.home {
+  background-color: rgba(255, 229, 229, 0.8); 
+}
+
+.shops {
+  background-color: rgba(229, 255, 229, 0.8);
+}
+.deals {
+  background-color: rgba(229, 243, 255, 0.8); 
+}
+
+.events {
+  background-color: rgba(255, 229, 255, 0.8); 
+}
+
+.section-link a {
+  color: #000;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.section-link a:hover {
+  color: #fff;
+  background-color: #000;
+  border-radius: 5px;
+}
+
+.section-content {
+  padding: 20px;
+}

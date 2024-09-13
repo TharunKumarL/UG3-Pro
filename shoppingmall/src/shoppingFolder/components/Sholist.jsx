@@ -29,32 +29,6 @@ const shopsData = [
     contact: '(225) 888-4120',
     image: ambmall, 
   },
-  {
-    id: 1,
-    name: 'AMBMall',
-    location: 'Level 1, near JCPenney',
-    image: ambmall, 
-  },
-  {
-    id: 2,
-    name: 'AMBMall',
-    location: 'Level 2, near Macy\'s',
-    contact: '(225) 888-4120',
-    image: ambmall, 
-  },
-  {
-    id: 1,
-    name: 'AMBMall',
-    location: 'Level 1, near JCPenney',
-    image: ambmall, 
-  },
-  {
-    id: 2,
-    name: 'AMBMall',
-    location: 'Level 2, near Macy\'s',
-    contact: '(225) 888-4120',
-    image: ambmall, 
-  },
 ];
 
 function ShopsList() {
