@@ -42,7 +42,7 @@ img{
   .shop-image img {
     width: 100px;
     height: 100px;
-    background-color: #f5f5f5; /* Placeholder color */
+    background-color: #f5f5f5;
     object-fit: contain;
   }
   

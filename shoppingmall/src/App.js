@@ -6,7 +6,7 @@ import NavBar from './shoppingFolder/components/NavBar';
 import Login from './shoppingFolder/components/Login/Login';
 import Signup from './shoppingFolder/components/Signup/Signup';
 import Body from './shoppingFolder/components/Body';
-import ShopsList from './shoppingFolder/components/Sholist'; // Make sure it's correctly imported
+import ShopsList from './shoppingFolder/components/Sholist';
 
 function App() {
   return (
