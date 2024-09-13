@@ -8,7 +8,7 @@ const Body = () => {
         <a href="/">Home</a>
       </div>
       <div className="section-link shops">
-        <a href="/shops">Shops</a>
+        <a href="/shoplist">Shops</a>
       </div>
       <div className="section-link deals">
         <a href="/deals">Deals</a>

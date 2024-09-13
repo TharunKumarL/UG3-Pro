@@ -6,6 +6,7 @@ import NavBar from './shoppingFolder/components/NavBar';
 import Login from './shoppingFolder/components/Login/Login';
 import Signup from './shoppingFolder/components/Signup/Signup';
 import Body from './shoppingFolder/components/Body';
+import ShopsList from './shoppingFolder/components/Sholist'; // Make sure it's correctly imported
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/shoplist" element={<ShopsList />} /> 
         </Routes>
         <Body/>
       </div>

@@ -1,0 +1,78 @@
+.shops-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+img{
+    width: 10%;
+}
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  
+  .filter select {
+    padding: 5px;
+    font-size: 1rem;
+  }
+  
+  .shops-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .shop-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .shop-image img {
+    width: 100px;
+    height: 100px;
+    background-color: #f5f5f5; /* Placeholder color */
+    object-fit: contain;
+  }
+  
+  .shop-info {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+  
+  .shop-info h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .shop-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .details-button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .details-button:hover {
+    background-color: #ff4081;
+  }
+  

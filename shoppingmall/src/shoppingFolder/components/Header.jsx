@@ -7,7 +7,7 @@ const Header = () => {
       <div className="logo">Shopping Mall</div>
       <nav className="nav-links">
         <a href="/">Home</a>
-        <a href="/shops">Shops</a>
+        <a href="/shoplist">Shops</a>
         <a href="/deals">Deals</a>
         <a href="/events">Events</a>
         <a href="/signup">Sign Up</a>
