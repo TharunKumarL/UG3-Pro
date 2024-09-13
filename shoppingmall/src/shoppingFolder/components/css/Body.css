@@ -51,3 +51,19 @@
     background-color: rgba(255, 229, 255, 0.8);
   }
   
+  .section-link a {
+    color: #000;
+    text-decoration: none;
+    padding: 10px 20px;
+  }
+  
+  .section-link a:hover {
+    color: #fff;
+    background-color: #000;
+    border-radius: 5px;
+  }
+  
+  .section-content {
+    padding: 20px;
+  }
+  
