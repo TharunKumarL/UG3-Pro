@@ -18,8 +18,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/shoplist" element={<ShopsList />} />
-          <Route path="/Deals" elements={<Deals/>} />
-          <Route path="/Event" elements={<Event/>} />
+          <Route path="/deals" element={<Deals/>} />
+          <Route path="/event" element={<Event/>} />
         </Routes>
         <Body/>
       </div>
