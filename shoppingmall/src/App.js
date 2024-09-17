@@ -9,6 +9,7 @@ import Body from './shoppingFolder/components/Body';
 import ShopsList from './shoppingFolder/components/Sholist';
 import Deals from './shoppingFolder/components/Deals';
 import Event from './shoppingFolder/components/Event';
+import Footer from './shoppingFolder/components/Footer';
 function App() {
   return (
     <Router>
@@ -20,8 +21,9 @@ function App() {
           <Route path="/shoplist" element={<ShopsList />} />
           <Route path="/deals" element={<Deals/>} />
           <Route path="/event" element={<Event/>} />
+          <Route path="/" element={<Body/>} />
         </Routes>
-        <Body/>
+        <Footer/>
       </div>
     </Router>
   );

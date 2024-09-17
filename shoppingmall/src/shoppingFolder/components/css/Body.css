@@ -6,7 +6,8 @@
   background-color: #f0f0f0;
   height: 100vh;
   border-top: 2px solid #e0e0e0;
-  margin-bottom:2000px;
+  margin-bottom:200px;
+  color: #333;
 }
 
 /* Row for navigation links */

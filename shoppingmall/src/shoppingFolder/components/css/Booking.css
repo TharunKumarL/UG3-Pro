@@ -1,0 +1,188 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #280842; 
+    color: #f3f3f3; 
+  }
+  
+  .services {
+    margin-top: 5em;
+    display: flex;
+    justify-content: center;
+  }
+  .services h1 {
+    color: #f0e68c; 
+    font-size: 3.5em;
+    margin-bottom: 1em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  .intro-text {
+    font-size: 2em;
+    max-width: 19em;
+    color: #bdbdbd;
+    font-size: 1em;
+    line-height: 1.7em;
+    margin-top: -1em;
+  }
+  
+  .service-grid {
+    display: flex;
+    gap: 3em;
+    justify-content: center;
+    height: 22em;
+  }
+  
+  .services {
+    opacity: 0; 
+    transform: scale(0.8); 
+    transition: opacity 1s ease, transform 1s ease; 
+  }
+  .services.fade-zoom {
+    opacity: 1;
+    transform: scale(1); 
+  }
+  
+  .tournaments, .livematches, .ContactUs, .Bookings {
+    opacity: 0; 
+    transform: scale(0.8); 
+    transition: opacity 1s ease, transform 1s ease; 
+  }
+  
+  .fade-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .tournaments img, .livematches img, .ContactUs img, .Bookings img {
+    filter: grayscale(95%); 
+    transition: filter 0.3s ease;
+  }
+  
+  .tournaments img:hover, .livematches img:hover, .ContactUs img:hover, .Bookings img:hover {
+    filter: grayscale(0%); 
+  }
+  
+  .tournaments {
+    width: 19em;
+    padding: 1em;
+  }
+  
+  .tournaments img {
+    border: 0.5em white solid;
+    height: 17em;
+    width: 12em;
+  }
+  
+  .tournaments p {
+    font-family: initial;
+    font-size: 1.6em;
+    transform: translateY(-10.0em) translateX(7.75em);
+    display: inline-block;
+  }
+  
+  .tournaments h4 {
+    font-family: initial;
+    font-size: 4em;
+    transform: translateX(3em) translateY(0.7em); 
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  #hr1 {
+    transform: translateY(-15.5em) translateX(9.5em);
+    width: 10em;
+    border: 0.15em white solid;
+  }
+  
+  
+  .livematches img {
+    border: 0.5em white solid;
+    height: 12em;
+    width: 17em;
+  }
+  
+  .livematches p {
+    font-family: initial;
+    font-size: 1.6em;
+    transform: translateY(0.5em) translateX(9em);
+    display: inline-block;
+  }
+  
+  .livematches h4 {
+    font-family: initial;
+    font-size: 4em;
+    transform: translateX(2.3em) translateY(4.4em); 
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  #hr2 {
+    transform: rotate(90deg) translatex(2em) translateY(-8.8em);
+    width: 10em;
+    border: 0.15em white solid;
+  }
+  
+  .ContactUs {
+    padding-left: 0em;
+  }
+  
+  .ContactUs img {
+    border: 0.5em white solid;
+    height: 12em;
+    width: 17em;
+    margin-top: 5em;
+  }
+  
+  .ContactUs p {
+    font-family: initial;
+    font-size: 1.6em;
+    transform: translateY(-11em) translateX(2.5em);
+    display: inline-block;
+  }
+  
+  .ContactUs h4 {
+    font-family: initial;
+    font-size: 4em;
+    transform: translateX(-0.5em) translateY(1em); 
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  #hr4 {
+    transform: rotate(90deg) translateX(-15em) translateY(2em);
+    width: 10em;
+    border: 0.15em white solid;
+  }
+  .Bookings {
+    padding-left: 6em;
+  }
+  
+  .Bookings img {
+    border: 0.5em white solid;
+    height: 17em;
+    width: 12em;
+  }
+  
+  .Bookings p {
+    font-family: initial;
+    font-size: 1.6em;
+    transform: translateY(-3.5em) translateX(-4em);
+    display: inline-block;
+  }
+  
+  .Bookings h4 {
+    font-family: initial;
+    font-size: 4em;
+    transform: translateX(-1.25em) translateY(3.3em); 
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  #hr3 {
+    transform: translateY(-5em) translateX(-8em);
+    width: 11em;
+    border: 0.15em white solid;
+  }
+  

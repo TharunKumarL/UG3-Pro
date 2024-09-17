@@ -1,0 +1,64 @@
+.footer {
+    background-color: #111;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .logo h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .footer-links a,
+  .footer-socials .social-link {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .footer-links a:hover,
+  .footer-socials .social-link:hover {
+    color: #f39c12;
+  }
+  
+  .footer-bottom {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  /* Social icons size and hover effect */
+  .footer-socials .social-link i {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+  }
+  
+  .footer-socials .social-link:hover i {
+    transform: scale(1.2);
+  }
+  
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

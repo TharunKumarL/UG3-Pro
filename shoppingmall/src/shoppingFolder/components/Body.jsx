@@ -34,6 +34,17 @@ const Body = () => {
             <p>Watch the latest movies in our state-of-the-art cinema.</p>
             <button className="book-now-btn">Book Now</button>
           </div>
+          <div className="restaurant-booking">
+            <h3>Box Cricket</h3>
+            <p>Find and reserve a Court to Play Cricket.</p>
+            <button className="book-now-btn">Book Now</button>
+          </div>
+          <div className="movie-booking">
+            <h3>Book For a Events</h3>
+            <p>Grab your Tickets for an event</p>
+            <button className="book-now-btn">Book Now</button>
+          </div>
+          
         </div>
       </div>
     </div>
