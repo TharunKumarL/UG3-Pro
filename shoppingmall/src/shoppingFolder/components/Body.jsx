@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ShopsList from './Sholist';  
 import '../components/css/Body.css'; 
+import Deals from './Deals';
+import Event from './Event';
 
 const Body = () => {
   const [currentSection, setCurrentSection] = useState('home'); // Track the current section
@@ -33,16 +35,8 @@ const Body = () => {
           </div>
         )}
         {currentSection === 'shops' && <ShopsList />}  {/* Render ShopsList when 'shops' is selected */}
-        {currentSection === 'deals' && (
-          <div className="deals-section">
-            <h1>Check out the latest deals</h1>
-          </div>
-        )}
-        {currentSection === 'events' && (
-          <div className="events-section">
-            <h1>Upcoming events at the mall</h1>
-          </div>
-        )}
+        {currentSection === 'deals' && <Deals/>}
+        {currentSection === 'events' && <Event/>}
       </div>
     </div>
   );
