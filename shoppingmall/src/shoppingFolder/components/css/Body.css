@@ -1,16 +1,25 @@
 .mall-body {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
-  padding: 50px;
-  background-color: #f0f0f0; 
+  padding-top: 200px;
+  background-color: #f0f0f0;
   height: 100vh;
   border-top: 2px solid #e0e0e0;
+  margin-bottom:2000px;
+}
+
+/* Row for navigation links */
+.navigation-row {
+  display: flex;
+  justify-content: space-around; /* Ensures even space between items */
+  width: 100%; /* Span the whole width */
+  margin-bottom: 150px; /* Adds space between navigation and bookings */
 }
 
 .section-link {
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -31,36 +40,73 @@
 
 .section-link:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .home {
-  background-color: rgba(255, 229, 229, 0.8); 
+  background-color: rgba(255, 229, 229, 0.8);
 }
 
 .shops {
   background-color: rgba(229, 255, 229, 0.8);
 }
+
 .deals {
-  background-color: rgba(229, 243, 255, 0.8); 
+  background-color: rgba(229, 243, 255, 0.8);
 }
 
 .events {
-  background-color: rgba(255, 229, 255, 0.8); 
+  background-color: rgba(255, 229, 255, 0.8);
 }
 
-.section-link a {
-  color: #000;
-  text-decoration: none;
-  padding: 10px 20px;
+/* Booking section */
+.booking-section {
+  width: 80%; 
+  background-color: white;
+  padding: 40px 20px;
+  padding-top: 100px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.section-link a:hover {
-  color: #000;
-  /* background-color: #000; */
-  border-radius: 5px;
+.booking-options {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
-.section-content {
+.restaurant-booking, .movie-booking {
+  width: 300px;
   padding: 20px;
+  border: 2px solid #f0f0f0;
+  border-radius: 10px;
+  background-color: #fafafa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.restaurant-booking:hover, .movie-booking:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.book-now-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #ff9800;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-now-btn:hover {
+  background-color: #e68900;
+}
+
+.wow-heading {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
 }

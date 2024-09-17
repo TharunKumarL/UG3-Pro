@@ -1,22 +1,40 @@
-import React, { useState } from 'react'; 
-import '../components/css/Body.css'; 
+import React from 'react';
+import '../components/css/Body.css';
 
 const Body = () => {
-
   return (
     <div className="mall-body">
-      {/* Links for navigation */}
-      <div className="section-link home" >
-        <a href="home">Home</a>
+      {/* Navigation Links in a Row */}
+      <div className="navigation-row">
+        <div className="section-link home">
+          <a href="home">Home</a>
+        </div>
+        <div className="section-link shops">
+          <a href="shoplist">Shops</a>
+        </div>
+        <div className="section-link deals">
+          <a href="deals">Deals</a>
+        </div>
+        <div className="section-link events">
+          <a href="event">Events</a>
+        </div>
       </div>
-      <div className="section-link shops">
-        <a href="shoplist">Shops</a>
-      </div>
-      <div className="section-link deals" >
-        <a href="deals">Deals</a>
-      </div>
-      <div className="section-link events" >
-        <a href="event">Events</a>
+
+      {/* Booking section for restaurant and movie */}
+      <div className="booking-section">
+        <h2 className="wow-heading">Book Your Experience</h2>
+        <div className="booking-options">
+          <div className="restaurant-booking">
+            <h3>Book a Restaurant</h3>
+            <p>Find and reserve a table at your favorite restaurant in our mall.</p>
+            <button className="book-now-btn">Book Now</button>
+          </div>
+          <div className="movie-booking">
+            <h3>Book a Movie</h3>
+            <p>Watch the latest movies in our state-of-the-art cinema.</p>
+            <button className="book-now-btn">Book Now</button>
+          </div>
+        </div>
       </div>
     </div>
   );
