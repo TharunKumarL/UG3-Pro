@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate,useLocation } from 'react-router-dom';
 import './App.css';
 import Header from './shoppingFolder/components/Header';
 import Login from './shoppingFolder/components/Login/Login';
@@ -9,6 +9,8 @@ import ShopsList from './shoppingFolder/components/Sholist';
 import Deals from './shoppingFolder/components/Deals';
 import Event from './shoppingFolder/components/Event';
 import Footer from './shoppingFolder/components/Footer';
+import Admin from './shoppingFolder/components/Admin';
+import AdminDashboard from './shoppingFolder/components/AdminDashboard.jsx';
 
 // Component to check if user is authenticated
 const ProtectedRoute = ({ element }) => {
@@ -32,6 +34,8 @@ function App() {
           <Route path="/deals" element={<ProtectedRoute element={<Deals />} />} />
           <Route path="/event" element={<ProtectedRoute element={<Event />} />} />
           <Route path="/" element={<ProtectedRoute element={<Body />} />} />
+          <Route path="/admin" element={<ProtectedRoute element={<Admin />} />} />
+          <Route path="/admin-dashboard" element={<ProtectedRoute element={<AdminDashboard />} />} /> 
         </Routes>
         <Footer />
       </div>

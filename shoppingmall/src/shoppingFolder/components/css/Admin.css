@@ -1,0 +1,34 @@
+/* Additional styling for Admin page */
+.Admin {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .Admin h1 {
+    color: #2E8B57;
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .Admin input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .Admin button {
+    background-color: #2E8B57;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .Admin button:hover {
+    background-color: #1c6d42;
+  }

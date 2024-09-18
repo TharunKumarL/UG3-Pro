@@ -9,7 +9,7 @@ const Footer = () => {
           <h2>ShoppingMall</h2>
         </div>
         <div className="footer-links">
-          <a href="#home">Home</a>
+          <a href="/">Home</a>
           <a href="#about">About Us</a>
           <a href="#services">Services</a>
           <a href="#contact">Contact</a>
