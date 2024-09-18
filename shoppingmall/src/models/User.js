@@ -14,6 +14,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  bookings:{
+    type:String,
+  }
 });
 
 module.exports = mongoose.model('user', UserSchema);

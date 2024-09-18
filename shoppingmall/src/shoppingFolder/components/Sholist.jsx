@@ -1,42 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../components/css/Shoplist.css';
-import ambmall from './images/shoplist/ambmall.jpg';
-
-const shopsData = [
-  {
-    id: 1,
-    name: 'AMBMall',
-    location: 'Level 1, near JCPenney',
-    image: ambmall, 
-  },
-  {
-    id: 2,
-    name: 'AMBMall',
-    location: 'Level 2, near Macy\'s',
-    contact: '(225) 888-4120',
-    image: ambmall, 
-  },
-  {
-    id: 1,
-    name: 'AMBMall',
-    location: 'Level 1, near JCPenney',
-    image: ambmall, 
-  },
-  {
-    id: 2,
-    name: 'AMBMall',
-    location: 'Level 2, near Macy\'s',
-    contact: '(225) 888-4120',
-    image: ambmall, 
-  },
-];
 
 function ShopsList() {
+  const [shops, setShops] = useState([]);
+
+  useEffect(() => {
+    // Fetch shops from the backend
+    const fetchShops = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/shops');
+        const data = await response.json();
+        setShops(data); // Set shop data to state
+      } catch (error) {
+        console.error('Error fetching shops:', error);
+      }
+    };
+    fetchShops();
+  }, []);
+
   return (
     <div className="shops-list">
       <h1>Stores & Restaurants</h1>
-      {shopsData.map(shop => (
-        <div key={shop.id} className="shop-item">
+      {shops.map(shop => (
+        <div key={shop._id} className="shop-item">
           {/* Shop image */}
           <img src={shop.image} alt={shop.name} className="shop-image" />
           {/* Shop details */}

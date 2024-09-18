@@ -11,7 +11,7 @@ const Header = () => {
         <a href="/deals">Deals</a>
         <a href="/event">Events</a>
         <a href="/signup">Sign Up</a>
-        <a href="/contact">Contact Us</a>
+        <a href="/mybookings">My Bookings</a>
 
       </nav>
       <div className="search-bar">

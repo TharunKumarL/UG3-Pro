@@ -7,7 +7,7 @@ const Body = () => {
       {/* Navigation Links in a Row */}
       <div className="navigation-row">
         <div className="section-link home">
-          <a href="home">Home</a>
+          <a href="/">Home</a>
         </div>
         <div className="section-link shops">
           <a href="shoplist">Shops</a>
