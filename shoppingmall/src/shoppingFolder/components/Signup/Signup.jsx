@@ -17,27 +17,29 @@ const Signup = () => {
     }
   
     try {
-      const response = await fetch('http://localhost:5000/api/signup', { // Adjust URL as necessary
+      const response = await fetch('http://localhost:5000/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, email, password }),
       });
-  
+    
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message);
+        console.log('Signup response:', data);
         alert('Signup successful!');
-        navigate('/login'); // Redirect after successful signup
+        navigate('/login');
       } else {
         const errorData = await response.json();
+        console.log('Error response:', errorData);
         alert(`Signup failed: ${errorData.error || 'Unknown error'}`);
       }
     } catch (error) {
-      console.error('Signup error:', error);
+      console.error('Network or server error:', error);
       alert('An error occurred during signup.');
     }
+    
   };
   
 

@@ -1,0 +1,51 @@
+/* UpdateShopDetail.css */
+
+.update-shop-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 100px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .update-shop-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .update-shop-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .update-shop-container label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .update-shop-container input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .update-shop-container button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .update-shop-container button:hover {
+    background-color: #0056b3;
+  }
+  
