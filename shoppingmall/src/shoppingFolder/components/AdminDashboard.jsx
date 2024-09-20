@@ -17,7 +17,7 @@ const AdminDashboard = () => {
             <p>Manage and add new shops to the mall directory.</p>
             <button
               className="manage-now-btn"
-              onClick={() => navigate('/add-shop')}
+              onClick={() => navigate('/admin/add-shop')}
             >
               Manage Now
             </button>

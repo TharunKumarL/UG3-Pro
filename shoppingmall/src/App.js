@@ -9,7 +9,6 @@ import ShopsList from './shoppingFolder/components/Sholist';
 import Deals from './shoppingFolder/components/Deals';
 import Event from './shoppingFolder/components/Event';
 import Footer from './shoppingFolder/components/Footer';
-import Admin from './shoppingFolder/components/Admin';
 import AdminDashboard from './shoppingFolder/components/AdminDashboard.jsx';
 import AddShops from './shoppingFolder/components/Admin/AddShops.jsx';
 import AddShopOwner from './shoppingFolder/components/Admin/AddShopOwner.jsx';
@@ -41,7 +40,6 @@ function App() {
           <Route path="/deals" element={<ProtectedRoute element={<Deals />} />} />
           <Route path="/event" element={<ProtectedRoute element={<Event />} />} />
           <Route path="/" element={<ProtectedRoute element={<Body />} />} />
-          <Route path="/admin" element={<ProtectedRoute element={<Admin />} />} />
           <Route path="/admin-dashboard" element={<ProtectedRoute element={<AdminDashboard />} />} /> 
           <Route path="/admin/add-shop" element={<ProtectedRoute element={<AddShops />} />} />
           <Route path="/admin/update-shop" element={<ProtectedRoute element={<UpdateShop />} />} />

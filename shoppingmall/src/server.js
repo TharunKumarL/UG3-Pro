@@ -10,6 +10,8 @@ const Deal = require('./models/Deal');
 const Event = require('./models/Event');
 // const ShopOwner = require('./models/ShopOwner');
 const adminAuth = require('./middleware/adminAuth');
+const verifyAdmin = require('./middleware/verifyAdmin.js');
+
 require('dotenv').config();
 
 const app = express();
@@ -21,7 +23,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(bodyParser.json());
-
+app.use('/api/admin', adminAuth,verifyAdmin);
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -64,6 +66,7 @@ app.post('/api/login', async (req, res) => {
   try {
     // Check for admin credentials
     if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+      console.log("Admin Login successfully")
       const token = jwt.sign(
         { userId: 'admin', role: 'admin' }, // Use a special identifier for admin
         process.env.JWT_SECRET,
@@ -90,6 +93,7 @@ app.post('/api/login', async (req, res) => {
     );
 
     res.status(200).json({ token });
+    
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -146,19 +150,25 @@ app.put('/api/shops/:id', async (req, res) => {
 // Admin routes
 app.use('/api/admin', adminAuth);
 
-app.post('/api/admin/shops', async (req, res) => {
-  const { name, location, description } = req.body;
-
-  if (!name || !location) {
-    return res.status(400).json({ error: 'Name and location are required' });
-  }
-
+// Admin route to add a shop
+app.post('/api/admin/shops', verifyAdmin, async (req, res) => {
   try {
-    const newShop = new Shop({ name, location, description });
+    const { name, location, contact, image } = req.body;
+
+    // Create new shop
+    const newShop = new Shop({
+      name,
+      location,
+      contact,
+      image,
+    });
+
     await newShop.save();
-    res.status(201).json({ message: 'Shop added successfully' });
+
+    res.status(201).json({ message: 'Shop added successfully!' });
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error adding shop:', error);
+    res.status(500).json({ error: 'Failed to add shop' });
   }
 });
 
@@ -252,7 +262,29 @@ app.put('/api/admin/update-shop/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to update shop' });
   }
 });
+// Route to add a new shop (Admin only)
+app.post('/api/admin/add-shop', async (req, res) => {
+  const { name, location, contact, image } = req.body;
 
+  if (!name || !location || !contact || !image) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    const newShop = new Shop({
+      name,
+      location,
+      contact,
+      image
+    });
+
+    await newShop.save();
+    res.status(201).json({ message: 'Shop added successfully', shop: newShop });
+  } catch (error) {
+    console.error('Error adding shop:', error);
+    res.status(500).json({ error: 'Failed to add shop' });
+  }
+});
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

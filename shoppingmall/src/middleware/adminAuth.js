@@ -16,11 +16,11 @@ const adminAuth = async (req, res, next) => {
       req.user = user; // Attach user to request object
       next(); // Proceed to the next middleware/route
     } else {
-      res.status(403).json({ error: 'Forbidden' });
+      return res.status(403).json({ error: 'Forbidden' });
     }
   } catch (error) {
-    res.status(401).json({ error: 'Unauthorized' });
+    return res.status(401).json({ error: 'Unauthorized' });
   }
 };
 
-module.exports = adminAuth;
+module.exports=adminAuth
