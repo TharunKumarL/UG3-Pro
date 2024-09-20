@@ -4,7 +4,7 @@ const ViewShops = () => {
   const [shops, setShops] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/shops')
+    fetch('http://localhost:5000/api/admin/shops')
       .then(response => response.json())
       .then(data => setShops(data))
       .catch(error => console.error('Error fetching shops:', error));

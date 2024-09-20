@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/css/AdminDashboard.css';
+import AddShopOwner from './Admin/AddShopOwner';
 
 const AdminDashboard = () => {
   const navigate = useNavigate(); // Initialize useNavigate for navigation
@@ -41,7 +42,7 @@ const AdminDashboard = () => {
             <p>Add new shop owners to the mall management system.</p>
             <button
               className="manage-now-btn"
-              onClick={() => navigate('/admin/add-shopowner')}
+              onClick={() => navigate('/admin/add-shopowners')}
             >
               Manage Now
             </button>

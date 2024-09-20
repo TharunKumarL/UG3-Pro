@@ -18,6 +18,9 @@ const shopSchema = new mongoose.Schema({
     type: String, // Store image path as a string
     required: true,
   },
+  owner: {
+    type: String,
+  },
 });
 
 const Shop = mongoose.model('Shop', shopSchema);

@@ -8,13 +8,14 @@ const User = require('./models/User');
 const Shop = require('./models/Shop');
 const Deal = require('./models/Deal');
 const Event = require('./models/Event');
-// const ShopOwner = require('./models/ShopOwner');
+const ShopOwner=require('./models/ShopOwner')
 const adminAuth = require('./middleware/adminAuth');
 const verifyAdmin = require('./middleware/verifyAdmin.js');
 
 require('dotenv').config();
 
 const app = express();
+
 const port = 5000;
 
 // Middleware
@@ -23,6 +24,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(bodyParser.json());
+// Admin routes
 app.use('/api/admin', adminAuth,verifyAdmin);
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -147,28 +149,25 @@ app.put('/api/shops/:id', async (req, res) => {
   }
 });
 
-// Admin routes
-app.use('/api/admin', adminAuth);
+app.get('/api/admin/shopowners', async (req, res) => {
+  try {
+    const shopOwners = await ShopOwner.find();
+    res.json(shopOwners);
+  } catch (error) {
+    console.error('Error fetching shop owners:', error);
+    res.status(500).json({ error: 'Failed to fetch shop owners' });
+  }
+});
+
 
 // Admin route to add a shop
 app.post('/api/admin/shops', verifyAdmin, async (req, res) => {
   try {
-    const { name, location, contact, image } = req.body;
-
-    // Create new shop
-    const newShop = new Shop({
-      name,
-      location,
-      contact,
-      image,
-    });
-
-    await newShop.save();
-
-    res.status(201).json({ message: 'Shop added successfully!' });
+    const shops = await Shop.find();
+    res.json(shops);
   } catch (error) {
-    console.error('Error adding shop:', error);
-    res.status(500).json({ error: 'Failed to add shop' });
+    console.error('Error fetching shops:', error);
+    res.status(500).json({ error: 'Failed to fetch shops' });
   }
 });
 
@@ -191,41 +190,6 @@ app.put('/api/admin/shops/:id', async (req, res) => {
   }
 });
 
-app.post('/api/admin/shopowners', async (req, res) => {
-  const { name, email, shopId } = req.body;
-
-  if (!name || !email || !shopId) {
-    return res.status(400).json({ error: 'Name, email, and shopId are required' });
-  }
-
-  try {
-    const newShopOwner = new ShopOwner({ name, email, shopId });
-    await newShopOwner.save();
-    res.status(201).json({ message: 'ShopOwner added successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-app.put('/api/admin/shopowners/:id', async (req, res) => {
-  const { id } = req.params;
-  const { name, email, shopId } = req.body;
-
-  try {
-    const shopOwner = await ShopOwner.findByIdAndUpdate(
-      id,
-      { name, email, shopId },
-      { new: true }
-    );
-    if (!shopOwner) {
-      return res.status(404).json({ error: 'ShopOwner not found' });
-    }
-    res.json(shopOwner);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 app.get('/api/admin/shops', async (req, res) => {
   try {
     const shops = await Shop.find();
@@ -233,16 +197,6 @@ app.get('/api/admin/shops', async (req, res) => {
   } catch (error) {
     console.error('Error fetching shops:', error);
     res.status(500).json({ error: 'Failed to fetch shops' });
-  }
-});
-
-app.get('/api/admin/shopowners', async (req, res) => {
-  try {
-    const shopOwners = await ShopOwner.find();
-    res.json(shopOwners);
-  } catch (error) {
-    console.error('Error fetching shop owners:', error);
-    res.status(500).json({ error: 'Failed to fetch shop owners' });
   }
 });
 
@@ -285,6 +239,43 @@ app.post('/api/admin/add-shop', async (req, res) => {
     res.status(500).json({ error: 'Failed to add shop' });
   }
 });
+//shopowners list
+app.get('/api/admin/shopowners', async (req, res) => {
+  try {
+    const shopOwners = await ShopOwner.find().populate('shop', 'name');
+    res.json(shopOwners);
+  } catch (error) {
+    console.error('Error fetching shop owners:', error);
+    res.status(500).json({ error: 'Failed to fetch shop owners' });
+  }
+});
+// src/routes/admin.js
+app.post('/add-shopowners/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, email, contact } = req.body;
+
+  try {
+    const shop = await Shop.findById(id);
+    if (!shop) {
+      return res.status(404).json({ error: 'Shop not found.' });
+    }
+
+    const newShopOwner = new ShopOwner({
+      name,
+      email,
+      contact,
+      shop: id, // Reference to the shop
+    });
+
+    await newShopOwner.save();
+    
+    return res.status(201).json({ message: 'Shop owner added successfully!', shopOwner: newShopOwner });
+  } catch (error) {
+    console.error('Error adding shop owner:', error);
+    return res.status(500).json({ error: 'An error occurred while adding the shop owner.' });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

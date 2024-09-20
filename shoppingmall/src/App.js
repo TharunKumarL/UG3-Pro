@@ -43,8 +43,8 @@ function App() {
           <Route path="/admin-dashboard" element={<ProtectedRoute element={<AdminDashboard />} />} /> 
           <Route path="/admin/add-shop" element={<ProtectedRoute element={<AddShops />} />} />
           <Route path="/admin/update-shop" element={<ProtectedRoute element={<UpdateShop />} />} />
-          <Route path="/admin/add-shopowner" element={<ProtectedRoute element={<AddShopOwner />} />} />
-          <Route path="/admin/update-shopowner" element={<ProtectedRoute element={<UpdateShopOwner />} />} />
+          <Route path="/admin/add-shopowners" element={<ProtectedRoute element={<AddShopOwner />} />} />
+          <Route path="/admin/update-shopowners" element={<ProtectedRoute element={<UpdateShopOwner />} />} />
           <Route path="admin/update-shop/:id" element={<ProtectedRoute element={<UpdateShopDetail />} />} />
           <Route path="/admin/view-shops" element={<ProtectedRoute element={<ShopsList/>} />} />
           <Route path="/admin/view-shopowners" element={<ProtectedRoute element={<ViewShopOwners />} />} />
