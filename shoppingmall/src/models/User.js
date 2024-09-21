@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
   bookings:{
     type:String,
   },
-  role: {  type: String,  enum: ['user', 'admin'] }
+  role: {  type: String,  enum: ['user', 'admin'] ,default:'user'}
 });
 
 module.exports = mongoose.model('user', UserSchema);

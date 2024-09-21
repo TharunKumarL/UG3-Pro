@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const Shop = require('./models/Shop');
@@ -89,7 +90,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     const token = jwt.sign(
-      { userId: user._id },
+      { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -100,7 +101,15 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
+// Utility function to generate a random password
+const generatePassword = () => {
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let password = '';
+  for (let i = 0; i < 10; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return password;
+};
 
 // Public routes
 app.get('/api/shops', async (req, res) => {
@@ -148,133 +157,136 @@ app.put('/api/shops/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to update shop' });
   }
 });
-
-app.get('/api/admin/shopowners', async (req, res) => {
-  try {
-    const shopOwners = await ShopOwner.find();
-    res.json(shopOwners);
-  } catch (error) {
-    console.error('Error fetching shop owners:', error);
-    res.status(500).json({ error: 'Failed to fetch shop owners' });
-  }
+//admin routes
+app.get('/api/admin/dashboard', (req, res) => {
+  res.json({ message: 'Welcome to the Admin Dashboard' });
 });
-
-
-// Admin route to add a shop
-app.post('/api/admin/shops', verifyAdmin, async (req, res) => {
-  try {
-    const shops = await Shop.find();
-    res.json(shops);
-  } catch (error) {
-    console.error('Error fetching shops:', error);
-    res.status(500).json({ error: 'Failed to fetch shops' });
-  }
-});
-
-app.put('/api/admin/shops/:id', async (req, res) => {
-  const { id } = req.params;
-  const { name, location, description } = req.body;
-
-  try {
-    const shop = await Shop.findByIdAndUpdate(
-      id,
-      { name, location, description },
-      { new: true }
-    );
-    if (!shop) {
-      return res.status(404).json({ error: 'Shop not found' });
-    }
-    res.json(shop);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 app.get('/api/admin/shops', async (req, res) => {
   try {
     const shops = await Shop.find();
+    console.log('Fetched shops from DB:', shops); // Log fetched shops
     res.json(shops);
   } catch (error) {
     console.error('Error fetching shops:', error);
     res.status(500).json({ error: 'Failed to fetch shops' });
   }
 });
-
-// Update shop details (admin route)
-app.put('/api/admin/update-shop/:id', async (req, res) => {
-  const { id } = req.params;
-  const { location, contact } = req.body;
-
-  try {
-    const updatedShop = await Shop.findByIdAndUpdate(id, { location, contact }, { new: true });
-    if (!updatedShop) {
-      return res.status(404).json({ error: 'Shop not found' });
-    }
-    res.json(updatedShop);
-  } catch (error) {
-    console.error('Error updating shop:', error);
-    res.status(500).json({ error: 'Failed to update shop' });
-  }
-});
-// Route to add a new shop (Admin only)
-app.post('/api/admin/add-shop', async (req, res) => {
+// Add a new shop
+// Add a new shop
+app.post('/api/admin/shops', async (req, res) => {
   const { name, location, contact, image } = req.body;
 
-  if (!name || !location || !contact || !image) {
-    return res.status(400).json({ error: 'All fields are required' });
+  if (!name || !location || !contact) {
+    return res.status(400).json({ error: 'Name, location, and contact are required' });
   }
 
   try {
-    const newShop = new Shop({
-      name,
-      location,
-      contact,
-      image
-    });
-
+    const newShop = new Shop({ name, location, contact, image });
     await newShop.save();
-    res.status(201).json({ message: 'Shop added successfully', shop: newShop });
+    res.status(201).json(newShop);
   } catch (error) {
     console.error('Error adding shop:', error);
-    res.status(500).json({ error: 'Failed to add shop' });
+    res.status(500).json({ error: 'Failed to add shop: ' + error.message });
   }
 });
-//shopowners list
-app.get('/api/admin/shopowners', async (req, res) => {
-  try {
-    const shopOwners = await ShopOwner.find().populate('shop', 'name');
-    res.json(shopOwners);
-  } catch (error) {
-    console.error('Error fetching shop owners:', error);
-    res.status(500).json({ error: 'Failed to fetch shop owners' });
-  }
-});
-// src/routes/admin.js
-app.post('/add-shopowners/:id', async (req, res) => {
-  const { id } = req.params;
+// Route to add a shop owner
+app.post('/add-shopowners/:shopId', async (req, res) => {
   const { name, email, contact } = req.body;
+  const { shopId } = req.params;
 
   try {
-    const shop = await Shop.findById(id);
-    if (!shop) {
-      return res.status(404).json({ error: 'Shop not found.' });
-    }
+    // Generate a random password for the shop owner
+    const password = generatePassword();
+    console.log(password)
+    const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create a new shop owner
     const newShopOwner = new ShopOwner({
       name,
       email,
       contact,
-      shop: id, // Reference to the shop
+      shop: shopId,
+      password: hashedPassword, // Store hashed password
     });
 
     await newShopOwner.save();
-    
-    return res.status(201).json({ message: 'Shop owner added successfully!', shopOwner: newShopOwner });
+
+    // Send the password to the shop owner's email
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail', // You can use any email service like Gmail, Outlook, etc.
+      auth: {
+        user: 'tharunkumarlagisetty@gmail.com', // Your email
+        pass: 'bjbt ovza dnuf ayyp',  // Your email password
+      },
+    });
+
+    const mailOptions = {
+      from: 'tharunkumarlagisetty22@gmail.com',
+      to: email,
+      subject: 'Your Shop Owner Account Password',
+      text: `Hello ${name},\n\nYour account has been created successfully. Here is your password: ${password}\nPlease log in and change your password immediately.\n\nBest regards,\nShopping Mall Admin`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(201).json({ message: 'Shop owner added successfully' });
+
   } catch (error) {
     console.error('Error adding shop owner:', error);
-    return res.status(500).json({ error: 'An error occurred while adding the shop owner.' });
+    res.status(500).json({ error: 'Failed to add shop owner' });
   }
 });
+app.delete('/api/shopowners/:id', async (req, res) => {
+  try {
+    const shopOwner = await ShopOwner.findById(req.params.id);
+    if (!shopOwner) {
+      return res.status(404).json({ error: 'Shop owner not found' });
+    }
+    
+    await shopOwner.remove();
+    res.json({ message: 'Shop owner deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting shop owner:', error);
+    res.status(500).json({ error: 'Failed to delete shop owner' });
+  }
+});
+
+//shopOwner
+app.post('/shopownerlogin', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find the shop owner by email
+    const shopOwner = await ShopOwner.findOne({ email });
+
+    if (!shopOwner) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+
+    // Compare the password
+    const isPasswordValid = await bcrypt.compare(password, shopOwner.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+
+    // Generate a token or return a success message
+    // Option 1: Use JWT for token-based authentication
+    const token = jwt.sign({ id: shopOwner._id, role: 'shopowner' },process.env.JWT_SECRET, {
+      expiresIn: '1h', // Token expires in 1 hour
+    });
+
+    // Option 2: Return success message (if you are not using JWT)
+    res.json({
+      message: 'Login successful',
+      token: token, // Send token if you are using it
+      shopOwner: { id: shopOwner._id, email: shopOwner.email }, // Or other required details
+    });
+  } catch (error) {
+    console.error('Error during shop owner login:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 // Start server
 app.listen(port, () => {

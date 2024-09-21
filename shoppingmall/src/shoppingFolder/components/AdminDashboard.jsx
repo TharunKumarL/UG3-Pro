@@ -1,10 +1,33 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/css/AdminDashboard.css';
 import AddShopOwner from './Admin/AddShopOwner';
 
 const AdminDashboard = () => {
   const navigate = useNavigate(); // Initialize useNavigate for navigation
+  
+  useEffect(() => {
+    // Check if user is authenticated and authorized
+    fetch('/api/admin/dashboard', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`, // Send token in request headers
+      }
+    })
+    .then(res => {
+      if (res.status === 401) {
+        // Unauthorized - redirect to login
+        navigate('/login');
+      } else if (res.status === 403) {
+        // Forbidden - user is not admin
+        alert('Access Denied: You are not authorized');
+        navigate('/login');
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      navigate('/login'); // Handle error by redirecting to login
+    });
+  }, [navigate]);
 
   return (
     <div className="admin-body">
@@ -43,18 +66,6 @@ const AdminDashboard = () => {
             <button
               className="manage-now-btn"
               onClick={() => navigate('/admin/add-shopowners')}
-            >
-              Manage Now
-            </button>
-          </div>
-
-          {/* Update ShopOwners */}
-          <div className="management-box update-shopowners">
-            <h3>Update ShopOwners</h3>
-            <p>Update the details of existing shop owners.</p>
-            <button
-              className="manage-now-btn"
-              onClick={() => navigate('/admin/update-shopowner')}
             >
               Manage Now
             </button>

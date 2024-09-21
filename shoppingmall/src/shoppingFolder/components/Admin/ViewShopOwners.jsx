@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import '../css/ViewShopOwners.css'
+import { useNavigate } from 'react-router-dom';
+import '../css/viewshopowners.css'
 
 const ViewShopOwners = () => {
   const [shopOwners, setShopOwners] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchShopOwners();
@@ -20,10 +21,31 @@ const ViewShopOwners = () => {
       const data = await response.json();
       setShopOwners(data);
       setLoading(false);
-    } catch (err) {
-      console.error('Error fetching shop owners:', err);
+    } catch (error) {
+      console.error('Error fetching shop owners:', error);
       setError('Failed to load shop owners. Please try again later.');
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (ownerId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this shop owner?');
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/shopowners/${ownerId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete shop owner');
+      }
+
+      alert('Shop owner deleted successfully!');
+      setShopOwners((prevOwners) => prevOwners.filter((owner) => owner._id !== ownerId));
+    } catch (error) {
+      console.error('Error deleting shop owner:', error);
+      alert('Failed to delete shop owner. Please try again later.');
     }
   };
 
@@ -47,7 +69,7 @@ const ViewShopOwners = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Contact</th>
-              <th>Shop</th>
+              <th>Shop Name</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -57,40 +79,25 @@ const ViewShopOwners = () => {
                 <td>{owner.name}</td>
                 <td>{owner.email}</td>
                 <td>{owner.contact}</td>
-                <td>{owner.shop ? owner.shop.name : 'N/A'}</td>
+                <td>{owner.shop.name}</td>
                 <td>
-                  <Link to={`/admin/edit-shopowner/${owner._id}`}>Edit</Link>
-                  {' | '}
-                  <button onClick={() => handleDelete(owner._id)}>Delete</button>
+                  <button
+                    onClick={() => navigate(`/admin/edit-shopowner/${owner._id}`)}
+                    className="edit-btn"
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(owner._id)} className="delete-btn">
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
-      <Link to="/admin/add-shopowner" className="add-shop-owner-button">
-        Add New Shop Owner
-      </Link>
     </div>
   );
-
-  async function handleDelete(ownerId) {
-    if (window.confirm('Are you sure you want to delete this shop owner?')) {
-      try {
-        const response = await fetch(`http://localhost:5000/api/admin/shopowners/${ownerId}`, {
-          method: 'DELETE',
-        });
-        if (!response.ok) {
-          throw new Error('Failed to delete shop owner');
-        }
-        // Remove the deleted shop owner from the state
-        setShopOwners(shopOwners.filter(owner => owner._id !== ownerId));
-      } catch (err) {
-        console.error('Error deleting shop owner:', err);
-        alert('Failed to delete shop owner. Please try again.');
-      }
-    }
-  }
 };
 
 export default ViewShopOwners;

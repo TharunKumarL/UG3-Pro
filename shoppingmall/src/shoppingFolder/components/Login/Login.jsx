@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+
 import './Login.css';
 
 const Login = () => {
@@ -23,8 +25,20 @@ const Login = () => {
       if (response.ok && data.token) {
         // Save the token in sessionStorage (or localStorage if you prefer)
         sessionStorage.setItem('token', data.token);
-        // Redirect the user to the home page after successful login
-        navigate('/');
+        
+        // Decode the token to get user role
+        const decodedToken = jwtDecode(data.token);
+        const userRole = decodedToken.role; // Assuming the role is included in the token
+        localStorage.setItem('user', JSON.stringify(decodedToken));
+
+        // Redirect the user based on role
+        console.log('userrole'+userRole)
+        if (userRole == 'admin') {
+          navigate('/admin/dashboard'); // Redirect admin to the dashboard
+
+        } else {
+          navigate('/'); // Redirect regular users to home
+        }
       } else {
         // Handle login error (e.g., invalid credentials)
         alert('Invalid login credentials');

@@ -13,7 +13,7 @@ const AddShops = () => {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem('token'); // Get the JWT token
+      const token = sessionStorage.getItem('token'); // Get the JWT token
 
       const response = await fetch('http://localhost:5000/api/admin/shops', {
         method: 'POST',
@@ -27,9 +27,11 @@ const AddShops = () => {
       if (response.ok) {
         const data = await response.json();
         alert('Shop added successfully!');
+        navigate('/admin/view-shops'); // Redirect to view shops after adding
       } else {
         const errorData = await response.json();
-        alert(`Failed to add shops: ${errorData.error}`);
+        console.error('Error details:', errorData); // Log the error details for debugging
+        alert(`Failed to add shop: ${errorData || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Network or server error:', error);

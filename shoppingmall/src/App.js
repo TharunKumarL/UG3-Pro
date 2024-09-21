@@ -17,6 +17,8 @@ import UpdateShopDetail from './shoppingFolder/components/Admin/UpdateShopDetail
 import UpdateShop from './shoppingFolder/components/Admin/UpdateShop.jsx';
 import ViewShopOwners from './shoppingFolder/components/Admin/ViewShopOwners.jsx';
 import ViewShops from './shoppingFolder/components/Admin/ViewShops.jsx';
+import ShopOwnerLogin from './shoppingFolder/components/shopowner.jsx';
+import ShopOwnerDashboard from './shoppingFolder/components/shopowner/dashboard.jsx';
 
 // Component to check if user is authenticated
 const ProtectedRoute = ({ element }) => {
@@ -24,6 +26,24 @@ const ProtectedRoute = ({ element }) => {
   if (!token) {
     return <Navigate to="/login" replace />;
   }
+  return element;
+};
+const ProtectedRouteAdmin = ({ element }) => {
+  const token = sessionStorage.getItem('token');
+  const userRole = JSON.parse(localStorage.getItem('user'))?.role; // Assuming user data is stored in localStorage
+  if (!token || userRole !== 'admin') {
+    return <Navigate to="/login" replace />;
+  }
+
+  return element;
+};
+const ProtectedRouteshopowner = ({ element }) => {
+  const token = sessionStorage.getItem('token');
+  const userRole = JSON.parse(localStorage.getItem('user'))?.role; // Assuming user data is stored in localStorage
+  if (!token || userRole !== 'shopowner') {
+    return <Navigate to="/shopownerlogin" replace />;
+  }
+
   return element;
 };
 
@@ -40,14 +60,16 @@ function App() {
           <Route path="/deals" element={<ProtectedRoute element={<Deals />} />} />
           <Route path="/event" element={<ProtectedRoute element={<Event />} />} />
           <Route path="/" element={<ProtectedRoute element={<Body />} />} />
-          <Route path="/admin-dashboard" element={<ProtectedRoute element={<AdminDashboard />} />} /> 
-          <Route path="/admin/add-shop" element={<ProtectedRoute element={<AddShops />} />} />
-          <Route path="/admin/update-shop" element={<ProtectedRoute element={<UpdateShop />} />} />
-          <Route path="/admin/add-shopowners" element={<ProtectedRoute element={<AddShopOwner />} />} />
-          <Route path="/admin/update-shopowners" element={<ProtectedRoute element={<UpdateShopOwner />} />} />
-          <Route path="admin/update-shop/:id" element={<ProtectedRoute element={<UpdateShopDetail />} />} />
-          <Route path="/admin/view-shops" element={<ProtectedRoute element={<ShopsList/>} />} />
-          <Route path="/admin/view-shopowners" element={<ProtectedRoute element={<ViewShopOwners />} />} />
+          <Route path="/admin/dashboard" element={<ProtectedRouteAdmin element={<AdminDashboard />} />} /> 
+          <Route path="/admin/add-shop" element={<ProtectedRouteAdmin element={<AddShops />} />} />
+          <Route path="/admin/update-shop" element={<ProtectedRouteAdmin element={<UpdateShop />} />} />
+          <Route path="/admin/add-shopowners" element={<ProtectedRouteAdmin element={<AddShopOwner />} />} />
+          <Route path="/admin/update-shopowners" element={<ProtectedRouteAdmin element={<UpdateShopOwner />} />} />
+          <Route path="admin/update-shop/:id" element={<ProtectedRouteAdmin element={<UpdateShopDetail />} />} />
+          <Route path="/admin/view-shops" element={<ProtectedRouteAdmin element={<ShopsList/>} />} />
+          <Route path="/admin/view-shopowners" element={<ProtectedRouteAdmin element={<ViewShopOwners />} />} />
+          <Route path="/shopownerlogin" element={<ShopOwnerLogin />}/>
+          <Route path="/shopowner/dashboard" element={<ShopOwnerDashboard />}/>
         </Routes>
         <Footer />
       </div>
