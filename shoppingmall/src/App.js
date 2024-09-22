@@ -16,9 +16,14 @@ import UpdateShopOwner from './shoppingFolder/components/Admin/UpdateShopOwner.j
 import UpdateShopDetail from './shoppingFolder/components/Admin/UpdateShopDetail.jsx';
 import UpdateShop from './shoppingFolder/components/Admin/UpdateShop.jsx';
 import ViewShopOwners from './shoppingFolder/components/Admin/ViewShopOwners.jsx';
-import ViewShops from './shoppingFolder/components/Admin/ViewShops.jsx';
+// import ViewShops from './shoppingFolder/components/Admin/ViewShops.jsx';
 import ShopOwnerLogin from './shoppingFolder/components/shopowner.jsx';
 import ShopOwnerDashboard from './shoppingFolder/components/shopowner/dashboard.jsx';
+import Viewdeals from './shoppingFolder/components/shopowner/viewdeals.jsx';
+import AddDeals from './shoppingFolder/components/shopowner/AddDeals.jsx';
+import ViewShopDetails from './shoppingFolder/components/shopowner/ViewShopDetails.jsx';
+import UpdateDeals from './shoppingFolder/components/shopowner/UpdateDeals.jsx';
+
 
 // Component to check if user is authenticated
 const ProtectedRoute = ({ element }) => {
@@ -70,6 +75,10 @@ function App() {
           <Route path="/admin/view-shopowners" element={<ProtectedRouteAdmin element={<ViewShopOwners />} />} />
           <Route path="/shopownerlogin" element={<ShopOwnerLogin />}/>
           <Route path="/shopowner/dashboard" element={<ShopOwnerDashboard />}/>
+          <Route path="/shopowner/view-deals" element={<Viewdeals />}/>
+          <Route path="/shopowner/add-deals" element={<AddDeals />}/>
+          <Route path="/shopowner/view-shop-details" element={<ViewShopDetails />}/>
+          <Route path="/shopowner/update-deals" element={<UpdateDeals/>}/>
         </Routes>
         <Footer />
       </div>

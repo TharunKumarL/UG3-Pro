@@ -13,6 +13,7 @@ const ShopOwner=require('./models/ShopOwner')
 const adminAuth = require('./middleware/adminAuth');
 const verifyAdmin = require('./middleware/verifyAdmin.js');
 
+
 require('dotenv').config();
 
 const app = express();
@@ -281,11 +282,78 @@ app.post('/shopownerlogin', async (req, res) => {
       token: token, // Send token if you are using it
       shopOwner: { id: shopOwner._id, email: shopOwner.email }, // Or other required details
     });
+    sessionStorage.setItem('shopOwnerId', shopOwner._id);
   } catch (error) {
     console.error('Error during shop owner login:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+//deals
+app.get('/api/shopowner/deals', async (req, res) => {
+  try {
+    const deals = await Deal.find({}); // You can add filters if necessary for shop owners
+    res.json(deals);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching deals', error });
+  }
+});
+//adddeals
+app.post('/api/shopowner/add-deal', async (req, res) => {
+  try {
+    const { store, description, expiration, image } = req.body;
+
+    const newDeal = new Deal({
+      store,
+      description,
+      expiration,
+      image,
+    });
+
+    await newDeal.save();
+    res.status(201).json({ message: 'Deal added successfully', deal: newDeal });
+  } catch (error) {
+    console.error('Error adding deal:', error);
+    res.status(500).json({ message: 'Error adding deal' });
+  }
+});
+
+
+
+// app.get('/api/shopowner/:id/shop-id', async (req, res) => {
+//   const { id } = req.params;
+
+//   try {
+//     const shopOwner = await ShopOwner.findById(id).populate('shop'); // Populate the shop field
+//     if (!shopOwner || !shopOwner.shop) {
+//       return res.status(404).json({ message: 'Shop owner or shop not found' });
+//     }
+//     res.json({ shopId: shopOwner.shop._id });
+//   } catch (error) {
+//     console.error('Error fetching shop ID:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
+
+
+
+// app.get('/api/shopowner/shop-details/:ownerId', async (req, res) => {
+//   const { ownerId } = req.params;
+
+//   try {
+//     const shopDetails = await Shop.findOne({ ownerId }); // Assuming 'ownerId' is the field in Shop model
+//     if (!shopDetails) {
+//       return res.status(404).json({ message: 'Shop not found' });
+//     }
+//     res.json(shopDetails);
+//   } catch (error) {
+//     console.error('Error fetching shop details:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
+
+
+
+
 
 
 // Start server
