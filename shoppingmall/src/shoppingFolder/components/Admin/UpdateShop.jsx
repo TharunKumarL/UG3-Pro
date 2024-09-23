@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../components/css/Updateshop.css'; // Make sure to create and style this CSS file
+import mall from '../images/background3.png';
 
 const UpdateShop = () => {
   const [shops, setShops] = useState([]);
@@ -25,7 +26,7 @@ const UpdateShop = () => {
       {shops.map(shop => (
         <div key={shop._id} className="shop-item">
           {/* Shop image */}
-          <img src={shop.image} alt={shop.name} className="shop-image" />
+          <img src={mall} alt={shop.name} className="shop-image" />
           {/* Shop details */}
           <div className="shop-info">
             <h2>{shop.name}</h2>

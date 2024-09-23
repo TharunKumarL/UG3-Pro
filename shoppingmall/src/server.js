@@ -122,6 +122,15 @@ app.get('/api/shops', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch shops' });
   }
 });
+app.get('/api/shopowners', async (req, res) => {
+  try {
+    const shopowners = await ShopOwner.find();
+    res.json(shopowners);
+  } catch (error) {
+    console.error('Error fetching shops:', error);
+    res.status(500).json({ error: 'Failed to fetch shops' });
+  }
+});
 
 app.get('/api/getdeals', async (req, res) => {
   try {

@@ -1,6 +1,9 @@
 .view-shop-owners-container {
   padding: 20px;
   padding-top: 100px;
+  background-color: #f9f9f9; /* Light background for better contrast */
+  border-radius: 8px; /* Rounded corners for a softer look */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .shop-owners-table {
@@ -8,25 +11,51 @@
   border-collapse: collapse;
 }
 
-.shop-owners-table th,
+.shop-owners-table th {
+  background-color: #4CAF50; /* Header background color */
+  color: white; /* Header text color */
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd; /* Distinct separation */
+}
+
 .shop-owners-table td {
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
+  transition: background-color 0.2s; /* Smooth background transition */
+}
+
+.shop-owners-table tr:hover td {
+  background-color: #f1f1f1; /* Highlight row on hover */
 }
 
 .edit-btn, .delete-btn {
-  padding: 5px 10px;
+  padding: 6px 12px; /* Increased padding for buttons */
   margin-right: 5px;
   cursor: pointer;
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners for buttons */
+  font-weight: bold; /* Bold text for emphasis */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
 }
 
 .edit-btn {
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* Green for edit */
   color: white;
 }
 
 .delete-btn {
-  background-color: #f44336;
+  background-color: #f44336; /* Red for delete */
   color: white;
+}
+
+.edit-btn:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+.delete-btn:hover {
+  background-color: #e53935; /* Darker red on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
 }
