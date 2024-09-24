@@ -36,7 +36,11 @@ const Login = () => {
         if (userRole == 'admin') {
           navigate('/admin/dashboard'); // Redirect admin to the dashboard
 
-        } else {
+        }
+        else if(userRole=='sportsmanager'){
+          navigate('/sport/owner')
+        } 
+        else {
           navigate('/'); // Redirect regular users to home
         }
       } else {

@@ -12,7 +12,7 @@ const Event = require('./models/Event');
 const ShopOwner=require('./models/ShopOwner')
 const adminAuth = require('./middleware/adminAuth');
 const verifyAdmin = require('./middleware/verifyAdmin.js');
-
+const SportRoute=require('./Routes/SportRoute.js')
 
 require('dotenv').config();
 
@@ -28,6 +28,8 @@ app.use(cors({
 app.use(bodyParser.json());
 // Admin routes
 app.use('/api/admin', adminAuth,verifyAdmin);
+//Routes //Sport
+app.use("/sport", SportRoute);
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -73,6 +75,15 @@ app.post('/api/login', async (req, res) => {
       console.log("Admin Login successfully")
       const token = jwt.sign(
         { userId: 'admin', role: 'admin' }, // Use a special identifier for admin
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+      );
+      return res.status(200).json({ token });
+    }
+    if (email === 'sportssection@gmail.com' && password === '1') {
+      console.log("Sports Section Login successfully")
+      const token = jwt.sign(
+        { userId: 'sportsmanager', role: 'sportsmanager' }, // Use a special identifier for admin
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
       );
@@ -359,9 +370,8 @@ app.post('/api/shopowner/add-deal', async (req, res) => {
 //     res.status(500).json({ message: 'Server error' });
 //   }
 // });
-
-
-
+//Routes //Sport
+app.use("/sport", SportRoute);
 
 
 

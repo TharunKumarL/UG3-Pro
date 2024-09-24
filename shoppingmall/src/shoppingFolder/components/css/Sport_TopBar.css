@@ -1,0 +1,41 @@
+.TopBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    padding-top: 100px;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #eaeaea;
+  }
+  
+  .home-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #343a40;
+    margin: 0;
+  }
+  
+  .navbar-things {
+    flex-grow: 1;
+  }
+  
+  .TopBar a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+  }
+  
+  .TopBar a:hover {
+    color: #0056b3;
+  }
+  
+  .TopBar h3 {
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+  }
+  
+  hr {
+    margin: 10px 0;
+  }
+  

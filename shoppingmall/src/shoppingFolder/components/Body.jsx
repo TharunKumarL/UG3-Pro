@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../components/css/Body.css';
 
 const Body = () => {
+  const navigate = useNavigate();
   return (
     <div className="mall-body">
       {/* Navigation Links in a Row */}
@@ -37,7 +39,12 @@ const Body = () => {
           <div className="restaurant-booking">
             <h3>Box Cricket</h3>
             <p>Find and reserve a Court to Play Cricket.</p>
-            <button className="book-now-btn">Book Now</button>
+            <button 
+              className="book-now-btn" 
+              onClick={() => navigate('/booksports')}
+            >
+              Book Now
+            </button>
           </div>
           <div className="movie-booking">
             <h3>Book For a Events</h3>

@@ -1,0 +1,57 @@
+.show-sport {
+    padding: 100px;
+    background-color: #f8f9fa; /* Light background color */
+    border-radius: 8px; /* Rounded corners for the container */
+}
+
+.sport-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between items */
+}
+
+.sport-item-box {
+    padding: 15px;
+    border: 1px solid #dee2e6; /* Light border around each item */
+    border-radius: 5px; /* Rounded corners for items */
+    background-color: white; /* White background for items */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.2s; /* Smooth scaling on hover */
+}
+
+.sport-item-box:hover {
+    transform: scale(1.02); /* Scale effect on hover */
+}
+
+.centered-hr {
+    border: 0;
+    height: 1px;
+    background: #dee2e6; /* Match the border color */
+    margin: 10px 0; /* Space around the line */
+}
+
+button {
+    margin: 5px; /* Space between buttons */
+    padding: 10px 15px; /* Increased padding for better clickability */
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Font size for buttons */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Custom focus outline */
+}
+
+/* Additional styling for the delete button */
+button span.material-symbols-outlined {
+    vertical-align: middle; /* Align icon vertically with text */
+}
