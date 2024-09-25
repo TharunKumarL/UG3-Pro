@@ -184,7 +184,7 @@ router.post("/user/booking/create", async (req, res) => {
 router.get("/update-bookings", async (req, res) => {
     try {
         // Fetch sports data
-        const response = await fetch("http://localhost:4000/sport/owner/get");
+        const response = await fetch("http://localhost:5000/sport/owner/get");
         const sportsData = await response.json();
 
         // Loop through each sport and update bookings

@@ -29,7 +29,10 @@ const Body = () => {
           <div className="restaurant-booking">
             <h3>Book a Restaurant</h3>
             <p>Find and reserve a table at your favorite restaurant in our mall.</p>
-            <button className="book-now-btn">Book Now</button>
+            <button 
+              className="book-now-btn" 
+              onClick={() => navigate('/bookrestaurant')}
+            ></button>
           </div>
           <div className="movie-booking">
             <h3>Book a Movie</h3>

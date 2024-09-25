@@ -10,10 +10,12 @@ const Shop = require('./models/Shop');
 const Deal = require('./models/Deal');
 const Event = require('./models/Event');
 const ShopOwner=require('./models/ShopOwner')
+const Reservation=require('./models/reservation.js')
 const adminAuth = require('./middleware/adminAuth');
 const verifyAdmin = require('./middleware/verifyAdmin.js');
 const SportRoute=require('./Routes/SportRoute.js')
-
+// const availabilityRoute=require('./Routes/availabilityRoute.js')
+// const reservationRoute=require('./Routes/reservationRoute.js')
 require('dotenv').config();
 
 const app = express();
@@ -30,6 +32,10 @@ app.use(bodyParser.json());
 app.use('/api/admin', adminAuth,verifyAdmin);
 //Routes //Sport
 app.use("/sport", SportRoute);
+// //Routes //availabilityRoute
+// app.use("/availabilty",availabilityRoute);
+// //Routes //reservationRoute
+// app.use("/reservation",reservationRoute);
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -112,7 +118,7 @@ app.post('/api/login', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+}); 
 // Utility function to generate a random password
 const generatePassword = () => {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -373,6 +379,73 @@ app.post('/api/shopowner/add-deal', async (req, res) => {
 //Routes //Sport
 app.use("/sport", SportRoute);
 
+
+app.post('/availability', (req, res) => {
+  const { date } = req.body;
+  // Fetch the available tables based on the date from MongoDB or other database
+  const availableTables = [
+    { _id: 1, name: "Table 1", capacity: 4, location: "Patio", isAvailable: true },
+    { _id: 2, name: "Table 2", capacity: 2, location: "Inside", isAvailable: false },
+    { _id: 3, name: "Table 3", capacity: 6, location: "Bar", isAvailable: true },
+    { _id: 4, name: "Table 4", capacity: 8, location: "Patio", isAvailable: true },
+    { _id: 5, name: "Table 5", capacity: 4, location: "Inside", isAvailable: false },
+    { _id: 6, name: "Table 6", capacity: 2, location: "Bar", isAvailable: true },
+    { _id: 7, name: "Table 7", capacity: 10, location: "Patio", isAvailable: true },
+    { _id: 8, name: "Table 8", capacity: 6, location: "Inside", isAvailable: false },
+    { _id: 9, name: "Table 9", capacity: 4, location: "Bar", isAvailable: true },
+    { _id: 10, name: "Table 10", capacity: 8, location: "Patio", isAvailable: true },
+    { _id: 11, name: "Table 11", capacity: 2, location: "Inside", isAvailable: true },
+    { _id: 12, name: "Table 12", capacity: 6, location: "Bar", isAvailable: false }
+  ];
+  res.json({ tables: availableTables });
+});
+app.post("/reservation", function(req, res, next) {
+  // Ensure required fields are provided
+  const { date, table, name, phone, email } = req.body;
+  if (!date || !table || !name || !phone || !email) {
+    return res.status(400).send("All fields are required.");
+  }
+
+  Day.findOne({ date: date }, (err, day) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Internal Server Error");
+    }
+    if (!day) {
+      console.log("Day not found");
+      return res.status(404).send("Day not found");
+    }
+
+    const selectedTable = day.tables.find(t => t._id == table);
+    if (!selectedTable) {
+      console.log("Table not found");
+      return res.status(404).send("Table not found");
+    }
+
+    if (!selectedTable.isAvailable) {
+      console.log("Table is already reserved");
+      return res.status(400).send("Table is already reserved");
+    }
+
+    // Create a new reservation and update the table status
+    selectedTable.reservation = new Reservation({
+      name: name,
+      phone: phone,
+      email: email
+    });
+    selectedTable.isAvailable = false;
+
+    day.save(err => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Failed to save reservation");
+      } else {
+        console.log("Reserved");
+        return res.status(200).send("Added Reservation");
+      }
+    });
+  });
+});
 
 
 // Start server

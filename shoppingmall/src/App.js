@@ -29,6 +29,8 @@ import Sport_TopBar from './shoppingFolder/components/sports/Sport_TopBar.jsx';
 import Create_Sport from './shoppingFolder/components/sports/Create_Sport.jsx';
 import Show_Sport from './shoppingFolder/components/sports/Show_Sport.jsx';
 import BookSlot from './shoppingFolder/components/sports/Booking_Sport.jsx';
+//Restaurants
+import Page from './shoppingFolder/components/restaurant/Page.jsx';
 // Component to check if user is authenticated
 const ProtectedRoute = ({ element }) => {
   const token = sessionStorage.getItem('token');
@@ -76,6 +78,7 @@ function App() {
           <Route path="/event" element={<ProtectedRoute element={<Event />} />} />
           <Route path="/" element={<ProtectedRoute element={<Body />} />} />
           <Route path="/booksports" element={<ProtectedRoute element={<Show_Sport/>}/>}/>
+          <Route path="/bookrestaurant" element={<ProtectedRoute element={<Page/>}/>}/>
           <Route path="/admin/dashboard" element={<ProtectedRouteAdmin element={<AdminDashboard />} />} /> 
           <Route path="/admin/add-shop" element={<ProtectedRouteAdmin element={<AddShops />} />} />
           <Route path="/admin/update-shop" element={<ProtectedRouteAdmin element={<UpdateShop />} />} />
